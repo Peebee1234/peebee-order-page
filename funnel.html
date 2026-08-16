@@ -96,8 +96,9 @@
  document.getElementById("orderForm").addEventListener("submit", function(e){
   e.preventDefault();
 
-  // Reset zoom immediately after submit
-  document.body.style.zoom = "1.0";
+  // Reset zoom immediately after submit (mobile fix)
+  document.querySelector("meta[name=viewport]")
+          .setAttribute("content", "width=device-width, initial-scale=1.0, maximum-scale=1.0");
 
   const formData = {
     name:this.name.value,
@@ -123,6 +124,7 @@
     alert("Something went wrong. Please try again.");
   });
 });
+
 
   document.getElementById("closeThankyou").onclick = () => document.getElementById("thankyouBox").style.display="none";
 </script>
