@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Firebase SDKs -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PeeBee - Disposable Urine Funnel</title>
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
-
-  <meta charset="UTF-8">
-  <title>PeeBee - Disposable Urine Funnel</title>
   <style>
     html, body {
       height: 100%;
@@ -24,13 +23,9 @@
       padding: 20px;
       color: #800080;
     }
-    header img {
-      max-width: 180px;
-      margin-bottom: 10px;
-    }
     h1 {
       font-family: 'Pacifico', cursive;
-      font-size: 42px;
+      font-size: 6vw; /* responsive font */
       margin: 0;
     }
     .product-details {
@@ -39,9 +34,18 @@
       padding: 20px;
     }
     .product-details img {
-      max-width: 300px;
-      border-radius: 8px;
+      max-width: 80%; /* bigger image */
+      height: auto;
       margin-bottom: 15px;
+    }
+    .product-details p {
+      font-size: 4vw; /* readable on mobile */
+    }
+    .product-details ul {
+      text-align: left;
+      max-width: 600px;
+      margin: auto;
+      font-size: 3.5vw;
     }
     .btn {
       display: inline-block;
@@ -52,51 +56,23 @@
       text-decoration: none;
       border-radius: 5px;
       cursor: pointer;
+      font-size: 4vw;
     }
-    .btn:hover {
-      background: #FF1493;
-    }
+    .btn:hover { background: #FF1493; }
     footer {
       margin-top: auto;
       text-align: center;
       padding: 20px;
       background: #800080;
       color: #fff;
-    }
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 999;
-      left: 0; top: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.6);
-    }
-    .modal-content {
-      background: rgba(255, 255, 255, 0.9);
-      border-radius: 16px;
-      padding: 30px;
-      max-width: 700px;
-      margin: 5% auto;
-      text-align: center;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.25);
-      backdrop-filter: blur(8px);
-      position: relative;
-      animation: fadeIn 0.5s ease;
-    }
-    @keyframes fadeIn {
-      from {opacity: 0; transform: translateY(20px);}
-      to {opacity: 1; transform: translateY(0);}
-    }
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
+      font-size: 3.5vw;
     }
   </style>
 </head>
 <body>
 
 <header>
-  <img src="logo.png" alt="PeeBee Logo">
+  <img src="logo.png" alt="PeeBee Logo" style="max-width:150px;">
   <h1>Disposable Urine Funnel</h1>
 </header>
 
@@ -104,6 +80,12 @@
   <img src="funnel.png" alt="Funnel">
   <p>Pack of 10 | MRP ₹185 | Offer ₹110</p>
   <p>Hygienic, travel-friendly, discreet packaging</p>
+  <ul>
+    <li>🚻 Easy to use for women</li>
+    <li>🧳 Perfect for travel & outdoor</li>
+    <li>♻️ Eco-safe disposal</li>
+    <li>🛡️ Leak-proof design</li>
+  </ul>
   <a class="btn" href="pads.html">← Previous Product</a>
   <a class="btn" href="index.html">Back to Home</a>
   <a class="btn" href="#" onclick="document.getElementById('orderModal').style.display='block'">Order Now</a>

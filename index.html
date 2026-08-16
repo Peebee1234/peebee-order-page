@@ -1,19 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Firebase SDKs (compat versions) -->
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
-
   <meta charset="UTF-8">
-  <title>PeeBee - Privacy First. Comfort Always.</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PeeBee - Home</title>
   <style>
-    body {
+    html, body {
+      margin: 0;
+      padding: 0;
       font-family: 'Poppins', sans-serif;
       background: url('background.png') no-repeat center center fixed;
       background-size: cover;
-      margin: 0;
-      padding: 0;
       color: #333;
     }
     header {
@@ -21,42 +18,34 @@
       padding: 20px;
       color: #800080;
     }
-    header img {
-      max-width: 180px;
-      margin-bottom: 10px;
-    }
     h1 {
       font-family: 'Pacifico', cursive;
-      font-size: 48px;
+      font-size: 6vw;
       margin: 0;
-    }
-    h2 {
-      font-size: 22px;
-      margin: 5px 0;
     }
     .products {
       display: flex;
-      justify-content: space-around;
-      padding: 20px;
       flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      padding: 20px;
     }
     .product {
-      background: rgba(255, 255, 255, 0.85);
-      border-radius: 12px;
+      background: rgba(255,255,255,0.9);
       padding: 20px;
-      margin: 10px;
-      width: 300px;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
       text-align: center;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-      backdrop-filter: blur(6px);
-    }
-    .product img {
-      width: 100%;
-      border-radius: 8px;
-      margin-bottom: 10px;
+      width: 280px;
     }
     .product h3 {
+      font-size: 4vw;
+      margin-bottom: 10px;
       color: #800080;
+    }
+    .product p {
+      font-size: 3.5vw;
+      margin-bottom: 15px;
     }
     .btn {
       display: inline-block;
@@ -67,83 +56,27 @@
       text-decoration: none;
       border-radius: 5px;
       cursor: pointer;
+      font-size: 3.5vw;
     }
-    .btn:hover {
-      background: #FF1493;
-    }
+    .btn:hover { background: #FF1493; }
     footer {
       text-align: center;
       padding: 20px;
       background: #800080;
       color: #fff;
-    }
-
-    /* Modal overlay */
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 999;
-      left: 0; top: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.6);
-    }
-
-    /* Modal content */
-    .modal-content {
-      background: rgba(255, 255, 255, 0.9);
-      border-radius: 16px;
-      padding: 30px;
-      max-width: 700px;
-      margin: 5% auto;
-      text-align: center;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.25);
-      backdrop-filter: blur(8px);
-      position: relative;
-      animation: fadeIn 0.5s ease;
-    }
-
-    /* Butterfly accent for thank-you */
-    #thankyouBox .modal-content::before {
-      content: "🦋";
-      font-size: 40px;
-      position: absolute;
-      top: -20px;
-      left: 50%;
-      transform: translateX(-50%);
-    }
-
-    /* Close button styling */
-    #closeThankyou {
-      background: #FF69B4;
-      color: #fff;
-      border: none;
-      padding: 10px 20px;
-      margin-top: 20px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 16px;
-    }
-    #closeThankyou:hover {
-      background: #FF1493;
-    }
-
-    @keyframes fadeIn {
-      from {opacity: 0; transform: translateY(20px);}
-      to {opacity: 1; transform: translateY(0);}
-    }
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
+      font-size: 3.5vw;
+      margin-top: 40px;
     }
   </style>
 </head>
 <body>
 
 <header>
-  <img src="logo.png" alt="PeeBee Logo">
-  <h1>PeeBee</h1>
-  <h2>Privacy First. Comfort Always.</h2>
+  <img src="logo.png" alt="PeeBee Logo" style="max-width:150px;">
+  <h1>Welcome to PeeBee</h1>
+  <p>Your comfort, our priority</p>
 </header>
+
 <section class="products">
   <div class="product">
     <h3>Premium Sanitary Pads</h3>
@@ -156,140 +89,17 @@
     <p>Pack of 10 | MRP ₹185 | Offer ₹110</p>
     <a class="btn" href="funnel.html">View Details</a>
   </div>
+
+  <div class="product">
+    <h3>Scented Candle</h3>
+    <p>MRP ₹399 | Deal Price ₹250 (Diwali Festival)</p>
+    <a class="btn" href="candle.html">View Details</a>
+  </div>
 </section>
-<!-- Hidden modal for Order Form -->
-<div id="orderModal" class="modal">
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <h3>Place Your Order</h3>
-    <form id="orderForm">
-      <label>Name:</label><br>
-      <input type="text" name="name" required><br><br>
-
-      <label>Mobile Number:</label><br>
-      <input type="text" name="mobile" required><br><br>
-
-      <label>Complete Address:</label><br>
-      <textarea name="address" rows="3" required></textarea><br><br>
-
-      <label>City:</label><br>
-      <input type="text" name="city" required><br><br>
-
-      <label>Product:</label><br>
-      <select name="product" required>
-        <option value="Pads">Premium Sanitary Pads</option>
-        <option value="Funnel">Disposable Urine Funnel</option>
-      </select><br><br>
-
-      <label>Quantity:</label><br>
-      <input type="number" name="quantity" min="1" required><br><br>
-
-      <label>Payment Method:</label><br>
-      <select name="payment" required>
-        <option value="COD">Cash on Delivery</option>
-        <option value="UPI">UPI Payment</option>
-      </select><br><br>
-
-      <label>Remarks:</label><br>
-      <textarea name="remarks" rows="2"></textarea><br><br>
-
-      <button type="submit" class="btn">Submit Order</button>
-    </form>
-    <div id="loadingSpinner" style="display:none; text-align:center; margin-top:20px;">
-      <p>⏳ Processing your order...</p>
-      <div style="border: 6px solid #f3f3f3; border-top: 6px solid #FF69B4; border-radius: 50%; width: 40px; height: 40px; margin:auto; animation: spin 1s linear infinite;"></div>
-    </div>
-  </div>
-</div>
-
-<!-- Hidden modal for Thank You -->
-<div id="thankyouBox" class="modal">
-  <div class="modal-content">
-    <h3>✅ Order Placed Successfully!</h3>
-    <p>Thank you for choosing <strong>PeeBee</strong>. Your Order ID will be generated in our system.</p>
-    <button id="closeThankyou">Close</button>
-  </div>
-</div>
-
 <footer>
   <p>📧 peebeehelp@gmail.com | 📞 +91 7317318251 | 💬 WhatsApp: 7388718251</p>
   <p>© 2026 MyComfort | Made with ❤️ in India</p>
 </footer>
 
-<script>
-  // Open modal when any "Order Now" button is clicked
-  document.querySelectorAll(".btn").forEach(btn => {
-    btn.addEventListener("click", function(e) {
-      if (this.innerText === "Order Now") {
-        e.preventDefault();
-        document.getElementById("orderModal").style.display = "block";
-      }
-    });
-  });
-
-  // Close order modal
-  document.querySelector(".close").onclick = function() {
-    document.getElementById("orderModal").style.display = "none";
-  };
-  window.onclick = function(event) {
-    if (event.target == document.getElementById("orderModal")) {
-      document.getElementById("orderModal").style.display = "none";
-    }
-  };
-
-  // Submit order form → save to Firestore
-  document.getElementById("orderForm").addEventListener("submit", function(e) {
-    e.preventDefault();
-    const formData = {
-      name: this.name.value,
-      mobile: this.mobile.value,
-      address: this.address.value,
-      city: this.city.value,
-      product: this.product.value,
-      quantity: this.quantity.value,
-      payment: this.payment.value,
-      remarks: this.remarks.value
-    };
-
-    // Show spinner
-    document.getElementById("loadingSpinner").style.display = "block";
-
-    db.collection("orders").add({
-      timestamp: new Date(),
-      ...formData
-    }).then(docRef => {
-      document.getElementById("loadingSpinner").style.display = "none";
-      document.getElementById("orderModal").style.display = "none";
-      document.getElementById("thankyouBox").style.display = "block";
-      document.querySelector("#thankyouBox p").innerText =
-        "Thank you for choosing PeeBee. Your Order ID is " + docRef.id;
-    }).catch(error => {
-      console.error("Error adding order: ", error);
-      document.getElementById("loadingSpinner").style.display = "none";
-      alert("Something went wrong. Please try again.");
-    });
-  });
-
-  // Close thank-you box
-  document.getElementById("closeThankyou").onclick = function() {
-    document.getElementById("thankyouBox").style.display = "none";
-  };
-</script>
-
-<script>
-  // Firebase config (replace with your actual values)
-  const firebaseConfig = {
-    apiKey: "AIzaSyB4ViEysJW6w5c9vuJuJslt8XPQS4817ac",
-    authDomain: "peebee-orders.firebaseapp.com",
-    projectId: "peebee-orders",
-    storageBucket: "peebee-orders.appspot.com",
-    messagingSenderId: "880869187150",
-    appId: "1:880869187150:web:4e31b93eb995c7a71a6d1f"
-  };
-
-  // Initialize Firebase
-  const app = firebase.initializeApp(firebaseConfig);
-  const db = firebase.firestore();
-</script>
 </body>
 </html>
