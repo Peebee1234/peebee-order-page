@@ -96,9 +96,12 @@
 document.getElementById("orderForm").addEventListener("submit", function(e){
   e.preventDefault();
 
-  // Reset zoom immediately after submit (mobile fix)
+  // Blur inputs to stop mobile zoom
+  Array.from(this.querySelectorAll("input, textarea, select")).forEach(el => el.blur());
+
+  // Reset viewport scale
   document.querySelector("meta[name=viewport]")
-          .setAttribute("content", "width=device-width, initial-scale=1.0, maximum-scale=1.0");
+          .setAttribute("content", "width=device-width, initial-scale=1.0");
 
   const formData = {
     name:this.name.value,
