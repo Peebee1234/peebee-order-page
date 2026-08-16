@@ -1,19 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Firebase SDKs (compat versions) -->
+  <!-- Firebase SDKs -->
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
 
   <meta charset="UTF-8">
-  <title>PeeBee - Privacy First. Comfort Always.</title>
+  <title>PeeBee - Disposable Urine Funnel</title>
   <style>
-    body {
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
       font-family: 'Poppins', sans-serif;
       background: url('background.png') no-repeat center center fixed;
       background-size: cover;
-      margin: 0;
-      padding: 0;
       color: #333;
     }
     header {
@@ -27,43 +30,25 @@
     }
     h1 {
       font-family: 'Pacifico', cursive;
-      font-size: 48px;
+      font-size: 42px;
       margin: 0;
     }
-    h2 {
-      font-size: 22px;
-      margin: 5px 0;
-    }
-    .products {
-      display: flex;
-      justify-content: space-around;
-      padding: 20px;
-      flex-wrap: wrap;
-    }
-    .product {
-      background: rgba(255, 255, 255, 0.85);
-      border-radius: 12px;
-      padding: 20px;
-      margin: 10px;
-      width: 300px;
+    .product-details {
+      flex: 1;
       text-align: center;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-      backdrop-filter: blur(6px);
+      padding: 20px;
     }
-    .product img {
-      width: 100%;
+    .product-details img {
+      max-width: 300px;
       border-radius: 8px;
-      margin-bottom: 10px;
-    }
-    .product h3 {
-      color: #800080;
+      margin-bottom: 15px;
     }
     .btn {
       display: inline-block;
       background: #FF69B4;
       color: #fff;
       padding: 10px 20px;
-      margin-top: 10px;
+      margin: 10px;
       text-decoration: none;
       border-radius: 5px;
       cursor: pointer;
@@ -72,13 +57,12 @@
       background: #FF1493;
     }
     footer {
+      margin-top: auto;
       text-align: center;
       padding: 20px;
       background: #800080;
       color: #fff;
     }
-
-    /* Modal overlay */
     .modal {
       display: none;
       position: fixed;
@@ -87,8 +71,6 @@
       width: 100%; height: 100%;
       background: rgba(0,0,0,0.6);
     }
-
-    /* Modal content */
     .modal-content {
       background: rgba(255, 255, 255, 0.9);
       border-radius: 16px;
@@ -101,32 +83,6 @@
       position: relative;
       animation: fadeIn 0.5s ease;
     }
-
-    /* Butterfly accent for thank-you */
-    #thankyouBox .modal-content::before {
-      content: "🦋";
-      font-size: 40px;
-      position: absolute;
-      top: -20px;
-      left: 50%;
-      transform: translateX(-50%);
-    }
-
-    /* Close button styling */
-    #closeThankyou {
-      background: #FF69B4;
-      color: #fff;
-      border: none;
-      padding: 10px 20px;
-      margin-top: 20px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 16px;
-    }
-    #closeThankyou:hover {
-      background: #FF1493;
-    }
-
     @keyframes fadeIn {
       from {opacity: 0; transform: translateY(20px);}
       to {opacity: 1; transform: translateY(0);}
@@ -141,21 +97,16 @@
 
 <header>
   <img src="logo.png" alt="PeeBee Logo">
-  <h1>PeeBee</h1>
-  <h2>Privacy First. Comfort Always.</h2>
+  <h1>Disposable Urine Funnel</h1>
 </header>
-<section class="products">
-  <div class="product">
-    <h3>Premium Sanitary Pads</h3>
-    <p>Pack of 6 | MRP ₹35 | Offer ₹29</p>
-    <a class="btn" href="pads.html">View Details</a>
-  </div>
 
-  <div class="product">
-    <h3>Disposable Urine Funnel</h3>
-    <p>Pack of 10 | MRP ₹185 | Offer ₹110</p>
-    <a class="btn" href="funnel.html">View Details</a>
-  </div>
+<section class="product-details">
+  <img src="funnel.png" alt="Funnel">
+  <p>Pack of 10 | MRP ₹185 | Offer ₹110</p>
+  <p>Hygienic, travel-friendly, discreet packaging</p>
+  <a class="btn" href="pads.html">← Previous Product</a>
+  <a class="btn" href="index.html">Back to Home</a>
+  <a class="btn" href="#" onclick="document.getElementById('orderModal').style.display='block'">Order Now</a>
 </section>
 <!-- Hidden modal for Order Form -->
 <div id="orderModal" class="modal">
@@ -177,7 +128,6 @@
 
       <label>Product:</label><br>
       <select name="product" required>
-        <option value="Pads">Premium Sanitary Pads</option>
         <option value="Funnel">Disposable Urine Funnel</option>
       </select><br><br>
 
@@ -217,7 +167,7 @@
 </footer>
 
 <script>
-  // Open modal when any "Order Now" button is clicked
+  // Open modal when "Order Now" button is clicked
   document.querySelectorAll(".btn").forEach(btn => {
     btn.addEventListener("click", function(e) {
       if (this.innerText === "Order Now") {
@@ -251,7 +201,6 @@
       remarks: this.remarks.value
     };
 
-    // Show spinner
     document.getElementById("loadingSpinner").style.display = "block";
 
     db.collection("orders").add({
@@ -263,6 +212,9 @@
       document.getElementById("thankyouBox").style.display = "block";
       document.querySelector("#thankyouBox p").innerText =
         "Thank you for choosing PeeBee. Your Order ID is " + docRef.id;
+
+      // Reset zoom after submit
+      document.body.style.zoom = "1.0";
     }).catch(error => {
       console.error("Error adding order: ", error);
       document.getElementById("loadingSpinner").style.display = "none";
@@ -277,7 +229,7 @@
 </script>
 
 <script>
-  // Firebase config (replace with your actual values)
+  // Firebase config
   const firebaseConfig = {
     apiKey: "AIzaSyB4ViEysJW6w5c9vuJuJslt8XPQS4817ac",
     authDomain: "peebee-orders.firebaseapp.com",
@@ -287,7 +239,6 @@
     appId: "1:880869187150:web:4e31b93eb995c7a71a6d1f"
   };
 
-  // Initialize Firebase
   const app = firebase.initializeApp(firebaseConfig);
   const db = firebase.firestore();
 </script>
