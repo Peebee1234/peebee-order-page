@@ -92,21 +92,37 @@
 <script>
   document.querySelector(".close").onclick = () => document.getElementById("orderModal").style.display="none";
   window.onclick = e => { if(e.target==document.getElementById("orderModal")) document.getElementById("orderModal").style.display="none"; };
-  document.getElementById("orderForm").addEventListener("submit", function(e){
-    e.preventDefault();
-    const formData = { name:this.name.value, mobile:this.mobile.value, address:this.address.value, city:this.city.value,
-                       product:this.product.value, quantity:this.quantity.value, payment:this.payment.value, remarks:this.remarks.value };
-    document.getElementById("loadingSpinner").style.display="block";
-    db.collection("orders").add({ timestamp:new Date(), ...formData }).then(docRef=>{
-      document.getElementById("loadingSpinner").style.display="none";
-      document.getElementById("orderModal").style.display="none";
-      document.getElementById("thankyouBox").style.display="block";
-      document.querySelector("#thankyouBox p").innerText="Thank you for choosing PeeBee. Your Order ID is "+docRef.id;
-    }).catch(err=>{
-      document.getElementById("loadingSpinner").style.display="none";
-      alert("Something went wrong. Please try again.");
-    });
+ document.getElementById("orderForm").addEventListener("submit", function(e){
+  e.preventDefault();
+
+  // Reset zoom immediately after submit
+  document.body.style.zoom = "1.0";
+
+  const formData = {
+    name:this.name.value,
+    mobile:this.mobile.value,
+    address:this.address.value,
+    city:this.city.value,
+    product:this.product.value,
+    quantity:this.quantity.value,
+    payment:this.payment.value,
+    remarks:this.remarks.value
+  };
+
+  document.getElementById("loadingSpinner").style.display="block";
+
+  db.collection("orders").add({ timestamp:new Date(), ...formData }).then(docRef=>{
+    document.getElementById("loadingSpinner").style.display="none";
+    document.getElementById("orderModal").style.display="none";
+    document.getElementById("thankyouBox").style.display="block";
+    document.querySelector("#thankyouBox p").innerText =
+      "Thank you for choosing PeeBee. Your Order ID is " + docRef.id;
+  }).catch(err=>{
+    document.getElementById("loadingSpinner").style.display="none";
+    alert("Something went wrong. Please try again.");
   });
+});
+
   document.getElementById("closeThankyou").onclick = () => document.getElementById("thankyouBox").style.display="none";
 </script>
 
