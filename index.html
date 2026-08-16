@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
+
   <meta charset="UTF-8">
   <title>PeeBee - Privacy First. Comfort Always.</title>
   <style>
@@ -254,21 +258,22 @@ document.getElementById("orderForm").addEventListener("submit", function(e) {
   // Show spinner
   document.getElementById("loadingSpinner").style.display = "block";
 
- fetch("https://script.google.com/macros/s/AKfycbwd9dXhrWBAamx9-pgey8NuqiZJeH9nmbDcFPv4_zSe0_ZvBtZP0LdZ8cZcUj4tBzLD/exec", {
-      method: "POST",
-    body: JSON.stringify(formData)
-  })
-  .then(res => res.json())
-  .then(data => {
-    // Hide spinner
-    document.getElementById("loadingSpinner").style.display = "none";
+db.collection("orders").add({
+  timestamp: new Date(),
+  ...formData
+}).then(docRef => {
+  // Hide spinner
+  document.getElementById("loadingSpinner").style.display = "none";
 
-    // Show thank-you box
-    document.getElementById("orderModal").style.display = "none";
-    document.getElementById("thankyouBox").style.display = "block";
-    document.querySelector("#thankyouBox p").innerText =
-      "Thank you for choosing PeeBee. Your Order ID is " + data.orderId;
-  });
+  // Show thank-you box
+  document.getElementById("orderModal").style.display = "none";
+  document.getElementById("thankyouBox").style.display = "block";
+  document.querySelector("#thankyouBox p").innerText =
+    "Thank you for choosing PeeBee. Your Order ID is " + docRef.id;
+}).catch(error => {
+  console.error("Error adding order: ", error);
+  document.getElementById("loadingSpinner").style.display = "none";
+  alert("Something went wrong. Please try again.");
 });
 
   // Close thank-you box → return to landing page
@@ -276,5 +281,22 @@ document.getElementById("orderForm").addEventListener("submit", function(e) {
     document.getElementById("thankyouBox").style.display = "none";
   };
 </script>
+
+<script>
+  // Replace with your Firebase project config
+  const firebaseConfig = {
+    apiKey: "YOUR_API_KEY",
+    authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+    projectId: "YOUR_PROJECT_ID",
+    storageBucket: "YOUR_PROJECT_ID.appspot.com",
+    messagingSenderId: "YOUR_SENDER_ID",
+    appId: "YOUR_APP_ID"
+  };
+
+  // Initialize Firebase
+  const app = firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+</script>
+
 </body>
 </html>
