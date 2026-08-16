@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- Firebase SDKs -->
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+  <!-- Firebase SDKs (compat versions) -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
 
   <meta charset="UTF-8">
   <title>PeeBee - Privacy First. Comfort Always.</title>
@@ -131,11 +131,11 @@
       from {opacity: 0; transform: translateY(20px);}
       to {opacity: 1; transform: translateY(0);}
     }
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-</style>
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
 </head>
 <body>
 
@@ -167,44 +167,44 @@
   <div class="modal-content">
     <span class="close">&times;</span>
     <h3>Place Your Order</h3>
-<form id="orderForm">
-  <label>Name:</label><br>
-  <input type="text" name="name" required><br><br>
+    <form id="orderForm">
+      <label>Name:</label><br>
+      <input type="text" name="name" required><br><br>
 
-  <label>Mobile Number:</label><br>
-  <input type="text" name="mobile" required><br><br>
+      <label>Mobile Number:</label><br>
+      <input type="text" name="mobile" required><br><br>
 
-  <label>Complete Address:</label><br>
-  <textarea name="address" rows="3" required></textarea><br><br>
+      <label>Complete Address:</label><br>
+      <textarea name="address" rows="3" required></textarea><br><br>
 
-  <label>City:</label><br>
-  <input type="text" name="city" required><br><br>
+      <label>City:</label><br>
+      <input type="text" name="city" required><br><br>
 
-  <label>Product:</label><br>
-  <select name="product" required>
-    <option value="Pads">Premium Sanitary Pads</option>
-    <option value="Funnel">Disposable Urine Funnel</option>
-  </select><br><br>
+      <label>Product:</label><br>
+      <select name="product" required>
+        <option value="Pads">Premium Sanitary Pads</option>
+        <option value="Funnel">Disposable Urine Funnel</option>
+      </select><br><br>
 
-  <label>Quantity:</label><br>
-  <input type="number" name="quantity" min="1" required><br><br>
+      <label>Quantity:</label><br>
+      <input type="number" name="quantity" min="1" required><br><br>
 
-  <label>Payment Method:</label><br>
-  <select name="payment" required>
-    <option value="COD">Cash on Delivery</option>
-    <option value="UPI">UPI Payment</option>
-  </select><br><br>
+      <label>Payment Method:</label><br>
+      <select name="payment" required>
+        <option value="COD">Cash on Delivery</option>
+        <option value="UPI">UPI Payment</option>
+      </select><br><br>
 
-  <label>Remarks:</label><br>
-  <textarea name="remarks" rows="2"></textarea><br><br>
+      <label>Remarks:</label><br>
+      <textarea name="remarks" rows="2"></textarea><br><br>
 
-  <button type="submit" class="btn">Submit Order</button>
-</form>
-<div id="loadingSpinner" style="display:none; text-align:center; margin-top:20px;">
-  <p>⏳ Processing your order...</p>
-  <div style="border: 6px solid #f3f3f3; border-top: 6px solid #FF69B4; border-radius: 50%; width: 40px; height: 40px; margin:auto; animation: spin 1s linear infinite;"></div>
-</div>
-</div>
+      <button type="submit" class="btn">Submit Order</button>
+    </form>
+    <div id="loadingSpinner" style="display:none; text-align:center; margin-top:20px;">
+      <p>⏳ Processing your order...</p>
+      <div style="border: 6px solid #f3f3f3; border-top: 6px solid #FF69B4; border-radius: 50%; width: 40px; height: 40px; margin:auto; animation: spin 1s linear infinite;"></div>
+    </div>
+  </div>
 </div>
 
 <!-- Hidden modal for Thank You -->
@@ -220,6 +220,7 @@
   <p>📧 peebeehelp@gmail.com | 📞 +91 7317318251 | 💬 WhatsApp: 7388718251</p>
   <p>© 2026 MyComfort | Made with ❤️ in India</p>
 </footer>
+
 <script>
   // Open modal when any "Order Now" button is clicked
   document.querySelectorAll(".btn").forEach(btn => {
@@ -241,79 +242,59 @@
     }
   };
 
-  // Submit order form → send to Apps Script
-document.getElementById("orderForm").addEventListener("submit", function(e) {
-  e.preventDefault();
-  const formData = {
-  name: this.name.value,
-  mobile: this.mobile.value,
-  address: this.address.value,
-  city: this.city.value,
-  product: this.product.value,
-  quantity: this.quantity.value,
-  payment: this.payment.value,
-  remarks: this.remarks.value
-};
+  // Submit order form → save to Firestore
+  document.getElementById("orderForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+    const formData = {
+      name: this.name.value,
+      mobile: this.mobile.value,
+      address: this.address.value,
+      city: this.city.value,
+      product: this.product.value,
+      quantity: this.quantity.value,
+      payment: this.payment.value,
+      remarks: this.remarks.value
+    };
 
-  // Show spinner
-  document.getElementById("loadingSpinner").style.display = "block";
+    // Show spinner
+    document.getElementById("loadingSpinner").style.display = "block";
 
-db.collection("orders").add({
-  timestamp: new Date(),
-  ...formData
-}).then(docRef => {
-  // Hide spinner
-  document.getElementById("loadingSpinner").style.display = "none";
+    db.collection("orders").add({
+      timestamp: new Date(),
+      ...formData
+    }).then(docRef => {
+      document.getElementById("loadingSpinner").style.display = "none";
+      document.getElementById("orderModal").style.display = "none";
+      document.getElementById("thankyouBox").style.display = "block";
+      document.querySelector("#thankyouBox p").innerText =
+        "Thank you for choosing PeeBee. Your Order ID is " + docRef.id;
+    }).catch(error => {
+      console.error("Error adding order: ", error);
+      document.getElementById("loadingSpinner").style.display = "none";
+      alert("Something went wrong. Please try again.");
+    });
+  });
 
-  // Show thank-you box
-  document.getElementById("orderModal").style.display = "none";
-  document.getElementById("thankyouBox").style.display = "block";
-  document.querySelector("#thankyouBox p").innerText =
-    "Thank you for choosing PeeBee. Your Order ID is " + docRef.id;
-}).catch(error => {
-  console.error("Error adding order: ", error);
-  document.getElementById("loadingSpinner").style.display = "none";
-  alert("Something went wrong. Please try again.");
-});
-
-  // Close thank-you box → return to landing page
+  // Close thank-you box
   document.getElementById("closeThankyou").onclick = function() {
     document.getElementById("thankyouBox").style.display = "none";
   };
 </script>
 
 <script>
-  // Replace with your Firebase project config
-  const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_PROJECT_ID.appspot.com",
-    messagingSenderId: "YOUR_SENDER_ID",
-    appId: "YOUR_APP_ID"
-  };
-
-  // Initialize Firebase
-  const app = firebase.initializeApp(firebaseConfig);
-  const db = firebase.firestore();
-<script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-app.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
-
-  // Your web app's Firebase configuration
+  // Firebase config (replace with your actual values)
   const firebaseConfig = {
     apiKey: "AIzaSyB4ViEysJW6w5c9vuJuJslt8XPQS4817ac",
     authDomain: "peebee-orders.firebaseapp.com",
     projectId: "peebee-orders",
-    storageBucket: "peebee-orders.firebasestorage.app",
+    storageBucket: "peebee-orders.appspot.com",
     messagingSenderId: "880869187150",
     appId: "1:880869187150:web:4e31b93eb995c7a71a6d1f"
   };
 
   // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
+  const app = firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
 </script>
 </body>
 </html>
