@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
 <!-- Firebase SDKs -->
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
 
   <meta charset="UTF-8">
   <title>PeeBee - Privacy First. Comfort Always.</title>
@@ -296,7 +296,24 @@ db.collection("orders").add({
   // Initialize Firebase
   const app = firebase.initializeApp(firebaseConfig);
   const db = firebase.firestore();
-</script>
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-app.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
 
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyB4ViEysJW6w5c9vuJuJslt8XPQS4817ac",
+    authDomain: "peebee-orders.firebaseapp.com",
+    projectId: "peebee-orders",
+    storageBucket: "peebee-orders.firebasestorage.app",
+    messagingSenderId: "880869187150",
+    appId: "1:880869187150:web:4e31b93eb995c7a71a6d1f"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+</script>
 </body>
 </html>
