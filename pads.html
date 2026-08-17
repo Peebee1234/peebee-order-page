@@ -96,8 +96,11 @@
 document.getElementById("orderForm").addEventListener("submit", function(e){
   e.preventDefault();
 
-  // Blur inputs to stop mobile zoom
+  // Blur inputs to release zoom
   Array.from(this.querySelectorAll("input, textarea, select")).forEach(el => el.blur());
+
+  // Force scroll to top (helps reset zoom on mobile)
+  window.scrollTo({ top: 0, behavior: "smooth" });
 
   // Reset viewport scale
   document.querySelector("meta[name=viewport]")
@@ -121,7 +124,7 @@ document.getElementById("orderForm").addEventListener("submit", function(e){
     document.getElementById("orderModal").style.display="none";
     document.getElementById("thankyouBox").style.display="block";
     document.querySelector("#thankyouBox p").innerText =
-      "Thank you for choosing PeeBee. Your Order ID is " + docRef.id;
+      "✅ Order Placed Successfully!\nThank you for choosing PeeBee. Your Order ID is " + docRef.id;
   }).catch(err=>{
     document.getElementById("loadingSpinner").style.display="none";
     alert("Something went wrong. Please try again.");
