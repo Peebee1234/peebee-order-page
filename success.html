@@ -19,23 +19,29 @@
     header img {
       height: 50px;
     }
-    .success-box {
-      margin: 50px auto;
-      padding: 30px;
-      background: #fff;
-      border-radius: 10px;
-      max-width: 400px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    }
-    .success-box h1 {
-      color: #28a745;
-      font-size: 22px;
-      margin-bottom: 15px;
-    }
-    .success-box p {
-      font-size: 16px;
-      margin: 10px 0;
-    }
+.success-box {
+  margin: 50px auto;
+  padding: 30px;
+  background: #f0fff4; /* soft pastel green */
+  border: 2px solid #28a745; /* gentle green border */
+  border-radius: 10px;
+  max-width: 420px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  text-align: center;
+}
+.success-box h1 {
+  color: #28a745;
+  font-size: 22px;
+  margin-bottom: 15px;
+}
+.success-box img {
+  height: 70px;
+  margin-bottom: 20px;
+}
+.success-box p {
+  font-size: 16px;
+  margin: 8px 0;
+}
     .btn {
       display: inline-block;
       margin-top: 20px;
@@ -62,12 +68,14 @@
     <img src="logo.png" alt="PeeBee Logo">
   </header>
 
-  <div class="success-box">
-    <h1>✅ Order Placed Successfully!</h1>
-    <p>Thank you for choosing PeeBee.</p>
-    <p>Your Order ID is <strong id="orderId"></strong></p>
-    <a href="index.html" class="btn">Back to Home</a>
-  </div>
+<div class="success-box">
+  <img src="logo.png" alt="PeeBee Logo">
+  <h1>✅ Order Placed Successfully!</h1>
+  <p>Thank you for choosing PeeBee.</p>
+  <p>Your Order ID is <strong id="orderId"></strong></p>
+  <p>You ordered: <strong id="productName"></strong></p>
+  <a href="index.html" class="btn">Back to Home</a>
+</div>
 
   <footer>
     peebeehelp@gmail.com | 📞 +91 731731825 | peebee1234.github.io
