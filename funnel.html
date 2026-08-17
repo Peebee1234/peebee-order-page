@@ -119,16 +119,15 @@ document.getElementById("orderForm").addEventListener("submit", function(e){
 
   document.getElementById("loadingSpinner").style.display="block";
 
-  db.collection("orders").add({ timestamp:new Date(), ...formData }).then(docRef=>{
-    document.getElementById("loadingSpinner").style.display="none";
-    document.getElementById("orderModal").style.display="none";
-    document.getElementById("thankyouBox").style.display="block";
-    document.querySelector("#thankyouBox p").innerText =
-      "✅ Order Placed Successfully!\nThank you for choosing PeeBee. Your Order ID is " + docRef.id;
-  }).catch(err=>{
-    document.getElementById("loadingSpinner").style.display="none";
-    alert("Something went wrong. Please try again.");
-  });
+ db.collection("orders").add({ timestamp:new Date(), ...formData }).then(docRef=>{
+  // Hide spinner
+  document.getElementById("loadingSpinner").style.display="none";
+
+  // Redirect to success page with orderId
+  window.location.href = "success.html?orderId=" + docRef.id;
+}).catch(err=>{
+  document.getElementById("loadingSpinner").style.display="none";
+  alert("Something went wrong. Please try again.");
 });
 
   document.getElementById("closeThankyou").onclick = () => document.getElementById("thankyouBox").style.display="none";

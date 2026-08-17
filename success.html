@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>PeeBee - Order Success</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #ffe6f0; /* same pinkish background */
+      color: #333;
+      text-align: center;
+    }
+    header {
+      background: #ff4da6;
+      padding: 15px;
+    }
+    header img {
+      height: 50px;
+    }
+    .success-box {
+      margin: 50px auto;
+      padding: 30px;
+      background: #fff;
+      border-radius: 10px;
+      max-width: 400px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    .success-box h1 {
+      color: #28a745;
+      font-size: 22px;
+      margin-bottom: 15px;
+    }
+    .success-box p {
+      font-size: 16px;
+      margin: 10px 0;
+    }
+    .btn {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 20px;
+      background: #ff4da6;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+    footer {
+      background: #ff4da6;
+      color: #fff;
+      padding: 10px;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <!-- Your PeeBee logo -->
+    <img src="logo.png" alt="PeeBee Logo">
+  </header>
+
+  <div class="success-box">
+    <h1>✅ Order Placed Successfully!</h1>
+    <p>Thank you for choosing PeeBee.</p>
+    <p>Your Order ID is <strong id="orderId"></strong></p>
+    <a href="index.html" class="btn">Back to Home</a>
+  </div>
+
+  <footer>
+    peebeehelp@gmail.com | 📞 +91 731731825 | peebee1234.github.io
+  </footer>
+
+  <script>
+    // Get orderId from URL query string
+    const params = new URLSearchParams(window.location.search);
+    const orderId = params.get("orderId");
+    if(orderId){
+      document.getElementById("orderId").innerText = orderId;
+    }
+  </script>
+</body>
+</html>
