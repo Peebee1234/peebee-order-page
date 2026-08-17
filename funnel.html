@@ -96,15 +96,15 @@
 document.getElementById("orderForm").addEventListener("submit", function(e){
   e.preventDefault();
 
-  // Blur inputs to release zoom
+  // Blur all inputs to release zoom
   Array.from(this.querySelectorAll("input, textarea, select")).forEach(el => el.blur());
 
-  // Force scroll to top (helps reset zoom on mobile)
-  window.scrollTo({ top: 0, behavior: "smooth" });
-
-  // Reset viewport scale
-  document.querySelector("meta[name=viewport]")
-          .setAttribute("content", "width=device-width, initial-scale=1.0");
+  // Delay viewport reset slightly so blur finishes
+  setTimeout(() => {
+    document.querySelector("meta[name=viewport]")
+            .setAttribute("content", "width=" + window.innerWidth + ", initial-scale=1.0");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, 300);
 
   const formData = {
     name:this.name.value,
