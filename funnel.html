@@ -96,15 +96,8 @@
 document.getElementById("orderForm").addEventListener("submit", function(e){
   e.preventDefault();
 
-  // Blur all inputs to release zoom
+  // Blur inputs to release zoom
   Array.from(this.querySelectorAll("input, textarea, select")).forEach(el => el.blur());
-
-  // Delay viewport reset slightly so blur finishes
-  setTimeout(() => {
-    document.querySelector("meta[name=viewport]")
-            .setAttribute("content", "width=" + window.innerWidth + ", initial-scale=1.0");
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }, 300);
 
   const formData = {
     name:this.name.value,
@@ -119,17 +112,20 @@ document.getElementById("orderForm").addEventListener("submit", function(e){
 
   document.getElementById("loadingSpinner").style.display="block";
 
- db.collection("orders").add({ timestamp:new Date(), ...formData }).then(docRef=>{
-  // Hide spinner
-  document.getElementById("loadingSpinner").style.display="none";
+  // ✅ Save to Firestore first
+  db.collection("orders").add({ timestamp:new Date(), ...formData })
+    .then(docRef => {
+      // Hide spinner
+      document.getElementById("loadingSpinner").style.display="none";
 
-  // Redirect to success page with orderId
-  window.location.href = "success.html?orderId=" + docRef.id;
-}).catch(err=>{
-  document.getElementById("loadingSpinner").style.display="none";
-  alert("Something went wrong. Please try again.");
-});
-
+      // ✅ Redirect only after Firestore confirms save
+      window.location.href = "success.html?orderId=" + docRef.id;
+    })
+    .catch(err => {
+      document.getElementById("loadingSpinner").style.display="none";
+      alert("Something went wrong. Please try again.");
+      console.error("Error adding order: ", err);
+    });
 });
 
   document.getElementById("closeThankyou").onclick = () => document.getElementById("thankyouBox").style.display="none";
